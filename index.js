@@ -1,6 +1,9 @@
+#!/usr/bin/env node
+
 const {program} = require('commander');
 const _ = require('lodash');
 const fs = require('fs-extra');
+
 //read file from path
 const readFile = (path) => {
     return new Promise((resolve, reject) => {
@@ -17,7 +20,7 @@ const readFile = (path) => {
 program
     .name('string-util')
     .description('CLI to some JavaScript string utilities')
-    .version('0.8.0');
+    .version('1.0.1');
 
 program.command('generate')
     .description('Generates font awesome icons from svgs')
