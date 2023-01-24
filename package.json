@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "Parse icons for font awesome",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "bin": {
     "icon-parser": "index.js"
   },
-  "author": "",
+  "author": "hobbica98",
+  "preferGlobal": true,
   "license": "ISC",
   "dependencies": {
     "commander": "^10.0.0",
