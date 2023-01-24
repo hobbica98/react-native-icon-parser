@@ -20,11 +20,12 @@ program
     .version('0.8.0');
 
 program.command('generate')
-    .description('Genreates font awesome icons from svgs')
-    .option('--to <to>', 'Destination directory', './icons')
-    .option('--from <from>', 'Path to custom icons js file (from font-awesome)', './kit/js/custom-icons.js')
+    .description('Generates font awesome icons from svgs')
+    .requiredOption('--to <to>', 'Destination directory')
+    .requiredOption('--from <from>', 'Path to custom icons js file (from font-awesome)')
     .action(async (args) => {
-        const data = await readFile(args.from);
+        const {to, from} = args;
+        const data = await readFile(from);
 
         const icons = JSON.parse(`{${data.split('var icons = {')[1].split('};')[0]}}`)
         for (const [key, value] of Object.entries(icons)) {
@@ -41,7 +42,7 @@ program.command('generate')
                 .replace(/<%-iconNamePascal%>/g, _.upperFirst(_.camelCase(icon.name)))
 
 
-            await fs.writeFile(`${args.to}/${icon.name}.js`, iconFile);
+            await fs.writeFile(`${to}/${icon.name}.js`, iconFile);
         }
         const imports = Object.keys(icons).map(icon => `const fa${_.upperFirst(_.camelCase(icon))} = require('./${icon}');`).join('\n');
         const exports = Object.keys(icons).map(icon => `exports.fa${_.upperFirst(_.camelCase(icon))} = ${_.upperFirst(_.camelCase(icon))};`).join('\n');
@@ -50,7 +51,7 @@ program.command('generate')
             .replace(/<%-imports%>/g, imports)
             .replace(/<%-exports%>/g, exports)
             .replace(/<%-iconsCache%>/g, iconCache)
-        await fs.writeFile(`${args.to}/index.js`, indexFile);
+        await fs.writeFile(`${to}/index.js`, indexFile);
     });
 
 program.parse();
