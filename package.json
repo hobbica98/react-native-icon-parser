@@ -1,5 +1,5 @@
 {
-  "name": "react-native-icon-parser",
+  "name": "@hobbica98/react-native-icon-parser",
   "version": "1.0.0",
   "description": "Parse icons for font awesome",
   "main": "index.js",
